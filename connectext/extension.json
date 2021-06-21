@@ -1,0 +1,10 @@
+{
+  "name": "EaaS Extension for e2e",
+  "description": "This extension is for e2e tests of EaaS.",
+  "version": "1.0.0",
+  "readme_url": "https://github.com/ffaraoneim/eaas-extension-e2e/blob/master/README.md",
+  "changelog_url": "https://github.com/ffaraoneim/eaas-extension-e2e/blob/master/README.md",
+  "capabilities": {
+    "asset_purchase_request_processing": ["pending"]
+  }
+}

@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  smash_dev:
+    container_name: smash_dev
+    image: cloudblueconnect/connect-extension-runner:latest
+    command: cextrun -d
+    volumes: 
+      - .:/extension
+    env_file:
+      - smash_dev.env
