@@ -5,7 +5,7 @@
 #
 from connect.eaas.extension import (
     Extension,
-    OK,
+    ProcessingResponse,
 )
 
 
@@ -20,4 +20,4 @@ class E2EExtension(Extension):
                 'template_id': template_id,
             }
         )
-        return OK
+        return ProcessingResponse.done()
