@@ -6,6 +6,7 @@
 from connect.eaas.extension import (
     Extension,
     ProcessingResponse,
+    ValidationResponse,
 )
 
 
@@ -21,3 +22,7 @@ class E2EExtension(Extension):
             }
         )
         return ProcessingResponse.done()
+
+
+    def validate_asset_purchase_request(self, request):
+        return ValidationResponse.done(request)

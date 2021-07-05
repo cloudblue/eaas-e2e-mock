@@ -5,6 +5,7 @@
   "readme_url": "https://github.com/ffaraoneim/eaas-extension-e2e/blob/master/README.md",
   "changelog_url": "https://github.com/ffaraoneim/eaas-extension-e2e/blob/master/README.md",
   "capabilities": {
-    "asset_purchase_request_processing": ["pending"]
+    "asset_purchase_request_processing": ["pending"],
+    "asset_purchase_request_validation": ["draft"]
   }
 }
