@@ -154,18 +154,19 @@ class E2EExtension(Extension):
             f"Received event for request {request['id']}, type {request['type']} "
             f"in status {request['status']}"
         )
-        reseller_fulfillment = ''.join(random.choice(string.ascii_lowercase) for _ in range(10))
-        self.client.ns('tier').config_requests[request['id']].update(
-            {
-                "params": [
-                    {
-                        "id": "reseller_fulfillment",
-                        "value": reseller_fulfillment
-                    }
-                ]
-            }
-        )
-        template_id = self.config['TIER_REQUEST_APPROVE_TEMPLATE_ID']
+        if request['status'] == 'pending':
+            reseller_fulfillment = ''.join(random.choice(string.ascii_lowercase) for _ in range(10))
+            self.client.ns('tier').config_requests[request['id']].update(
+                {
+                    "params": [
+                        {
+                            "id": "reseller_fulfillment",
+                            "value": reseller_fulfillment
+                        }
+                    ]
+                }
+            )
+            template_id = self.config['TIER_REQUEST_APPROVE_TEMPLATE_ID']
         self.approve_tier_request(request, template_id)
 
         return ProcessingResponse.done()
