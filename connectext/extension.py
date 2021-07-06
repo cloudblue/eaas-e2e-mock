@@ -166,7 +166,7 @@ class E2EExtension(Extension):
             }
         )
         template_id = self.config['TIER_REQUEST_APPROVE_TEMPLATE_ID']
-        self.approve_asset_request(request, template_id)
+        self.approve_tier_request(request, template_id)
 
         return ProcessingResponse.done()
 
@@ -177,7 +177,7 @@ class E2EExtension(Extension):
         )
         if request['status'] == 'pending':
             template_id = self.config['TIER_REQUEST_APPROVE_TEMPLATE_ID']
-            self.approve_asset_request(request, template_id)
+            self.approve_tier_request(request, template_id)
         return ProcessingResponse.done()
 
     def process_tier_config_adjustment_request(self, request):
@@ -187,5 +187,5 @@ class E2EExtension(Extension):
         )
         if request['status'] == 'pending':
             template_id = self.config['TIER_REQUEST_APPROVE_TEMPLATE_ID']
-            self.approve_asset_request(request, template_id)
+            self.approve_tier_request(request, template_id)
         return ProcessingResponse.done()
