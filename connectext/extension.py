@@ -167,7 +167,7 @@ class E2EExtension(Extension):
                 }
             )
             template_id = self.config['TIER_REQUEST_APPROVE_TEMPLATE_ID']
-        self.approve_tier_request(request, template_id)
+            self.approve_tier_request(request, template_id)
 
         return ProcessingResponse.done()
 
