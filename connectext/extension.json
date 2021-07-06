@@ -5,7 +5,20 @@
   "readme_url": "https://github.com/ffaraoneim/eaas-extension-e2e/blob/master/README.md",
   "changelog_url": "https://github.com/ffaraoneim/eaas-extension-e2e/blob/master/README.md",
   "capabilities": {
-    "asset_purchase_request_processing": ["pending"],
-    "asset_purchase_request_validation": ["draft"]
+    "asset_purchase_request_processing": ["pending", "approved", "failed", "inquiring"],
+    "asset_change_request_processing": ["pending", "approved", "failed", "inquiring"],
+    "asset_suspend_request_processing": ["pending", "approved", "failed"],
+    "asset_resume_request_processing": ["pending", "approved", "failed"],
+    "asset_cancel_request_processing": ["pending", "approved", "failed"],
+    "asset_adjustment_request_processing": ["pending", "approved", "failed", "inquiring"],
+    "asset_purchase_request_validation": ["draft"],
+    "asset_change_request_validation": ["draft"],
+    "product_action_execution": [],
+    "product_custom_event_processing": [],
+    "tier_config_setup_request_processing": ["pending", "failed", "approved", "inquiring"],
+    "tier_config_change_request_processing": ["pending", "failed", "approved", "inquiring"],
+    "tier_config_adjustment_request_processing": ["pending", "failed", "approved", "inquiring"],
+    "tier_config_setup_request_validation": ["draft"],
+    "tier_config_change_request_validation": ["draft"]
   }
 }
