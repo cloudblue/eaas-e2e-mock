@@ -2,8 +2,8 @@
   "name": "EaaS Extension for e2e",
   "description": "This extension is for e2e tests of EaaS.",
   "version": "1.0.0",
-  "readme_url": "https://github.com/ffaraoneim/eaas-extension-e2e/blob/master/README.md",
-  "changelog_url": "https://github.com/ffaraoneim/eaas-extension-e2e/blob/master/README.md",
+  "readme_url": "https://github.com/cloudblue/eaas-e2e-mock/blob/master/README.md",
+  "changelog_url": "https://github.com/cloudblue/eaas-e2e-mock/blob/master/CHANGELOG.md",
   "capabilities": {
     "asset_purchase_request_processing": ["pending", "approved", "failed", "inquiring"],
     "asset_change_request_processing": ["pending", "approved", "failed", "inquiring"],
