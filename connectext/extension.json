@@ -5,7 +5,7 @@
   "readme_url": "https://github.com/cloudblue/eaas-e2e-mock/blob/master/README.md",
   "changelog_url": "https://github.com/cloudblue/eaas-e2e-mock/blob/master/CHANGELOG.md",
   "capabilities": {
-    "asset_purchase_request_processing": ["pending", "approved", "failed", "inquiring"],
+    "asset_purchase_request_processing": ["pending", "approved", "failed", "inquiring", "scheduled", "revoking", "revoked"],
     "asset_change_request_processing": ["pending", "approved", "failed", "inquiring"],
     "asset_suspend_request_processing": ["pending", "approved", "failed"],
     "asset_resume_request_processing": ["pending", "approved", "failed"],
