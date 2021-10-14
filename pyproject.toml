@@ -14,7 +14,7 @@ readme = "./README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-connect-extension-runner = "^23.4"
+connect-extension-runner = "^24.0"
 
 
 [tool.poetry.dev-dependencies]
