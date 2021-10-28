@@ -40,7 +40,7 @@ class E2EExtension(Extension):
 
     def process_asset_purchase_request(self, request):
         self.logger.info(
-            f"Received event for request {request['id']} in status {request['status']}"
+            f"Received event for subscription request {request['id']} in status {request['status']}"
         )
         if request['status'] == 'pending':
             param_a = ''.join(random.choice(string.ascii_lowercase) for _ in range(10))
@@ -71,7 +71,7 @@ class E2EExtension(Extension):
 
     def process_asset_change_request(self, request):
         self.logger.info(
-            f"Received event for request {request['id']}, type {request['type']} "
+            f"Received event for subscription request {request['id']}, type {request['type']} "
             f"in status {request['status']}"
         )
 
@@ -82,7 +82,7 @@ class E2EExtension(Extension):
 
     def process_asset_suspend_request(self, request):
         self.logger.info(
-            f"Received event for request {request['id']}, type {request['type']} "
+            f"Received event for subscription request {request['id']}, type {request['type']} "
             f"in status {request['status']}"
         )
         if request['status'] == 'pending':
@@ -92,7 +92,7 @@ class E2EExtension(Extension):
 
     def process_asset_resume_request(self, request):
         self.logger.info(
-            f"Received event for request {request['id']}, type {request['type']} "
+            f"Received event for subscription request {request['id']}, type {request['type']} "
             f"in status {request['status']}"
         )
         if request['status'] == 'pending':
@@ -102,7 +102,7 @@ class E2EExtension(Extension):
 
     def process_asset_cancel_request(self, request):
         self.logger.info(
-            f"Received event for request {request['id']}, type {request['type']} "
+            f"Received event for subscription request {request['id']}, type {request['type']} "
             f"in status {request['status']}"
         )
         if request['status'] == 'pending':
@@ -112,7 +112,7 @@ class E2EExtension(Extension):
 
     def process_asset_adjustment_request(self, request):
         self.logger.info(
-            f"Received event for request {request['id']}, type {request['type']} "
+            f"Received event for subscription request {request['id']}, type {request['type']} "
             f"in status {request['status']}"
         )
         if request['status'] == 'pending':
@@ -129,11 +129,11 @@ class E2EExtension(Extension):
         return ValidationResponse.done(request)
 
     def validate_asset_purchase_request(self, request):
-        self.logger.info(f"Asset Validation with if {request['id']}")
+        self.logger.info(f"Asset Validation with id {request['id']}")
         return ValidationResponse.done(request)
 
     def validate_asset_change_request(self, request):
-        self.logger.info(f"asset Validation with if {request['id']}")
+        self.logger.info(f"asset Validation with id {request['id']}")
         return ValidationResponse.done(request)
 
     def execute_product_action(self, request):
@@ -152,8 +152,8 @@ class E2EExtension(Extension):
 
     def process_tier_config_setup_request(self, request):
         self.logger.info(
-            f"Received event for request {request['id']}, type {request['type']} "
-            f"in status {request['status']}"
+            f"Received event for TCR request {request['id']}, type {request['type']} "
+            f"in status {request['status']}",
         )
         if request['status'] == 'pending':
             reseller_fulfillment = ''.join(random.choice(string.ascii_lowercase) for _ in range(10))
@@ -174,8 +174,8 @@ class E2EExtension(Extension):
 
     def process_tier_config_change_request(self, request):
         self.logger.info(
-            f"Received event for request {request['id']}, type {request['type']} "
-            f"in status {request['status']}"
+            f"Received event for TCR request {request['id']}, type {request['type']} "
+            f"in status {request['status']}",
         )
         if request['status'] == 'pending':
             template_id = self.config['TIER_REQUEST_APPROVE_TEMPLATE_ID']
@@ -184,8 +184,8 @@ class E2EExtension(Extension):
 
     def process_tier_config_adjustment_request(self, request):
         self.logger.info(
-            f"Received event for request {request['id']}, type {request['type']} "
-            f"in status {request['status']}"
+            f"Received event for TCR request {request['id']}, type {request['type']} "
+            f"in status {request['status']}",
         )
         if request['status'] == 'pending':
             template_id = self.config['TIER_REQUEST_APPROVE_TEMPLATE_ID']
@@ -197,3 +197,38 @@ class E2EExtension(Extension):
             f"Scheduled execution started: {schedule}",
         )
         return ScheduledExecutionResponse.done()
+
+    def process_new_listing_request(self, request):  # pragma: no cover
+        self.logger.info(
+            f"Received event for listing request  {request['id']}, type {request['type']} "
+            f"in status {request['state']}",
+        )
+        return ProcessingResponse.done()
+
+    def process_remove_listing_request(self, request):  # pragma: no cover
+        self.logger.info(
+            f"Received event for listing request  {request['id']}, type {request['type']} "
+            f"in status {request['state']}",
+        )
+        return ProcessingResponse.done()
+
+    def process_tier_account_update_request(self, request):  # pragma: no cover
+        self.logger.info(
+            f"Received event for tier account request  {request['id']}, type {request['type']} "
+            f"in status {request['status']}",
+        )
+        return ProcessingResponse.done()
+
+    def process_usage_file(self, request):  # pragma: no cover
+        self.logger.info(
+            f"Received event for usage file  {request['id']} "
+            f"in status {request['status']}",
+        )
+        return ProcessingResponse.done()
+
+    def process_usage_chunk_file(self, request):  # pragma: no cover
+        self.logger.info(
+            f"Received event for usage chunks file  {request['id']} "
+            f"in status {request['status']}",
+        )
+        return ProcessingResponse.done()
