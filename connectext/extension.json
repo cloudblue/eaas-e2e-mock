@@ -19,7 +19,12 @@
     "tier_config_change_request_processing": ["pending", "failed", "approved", "inquiring"],
     "tier_config_adjustment_request_processing": ["pending", "failed", "approved", "inquiring"],
     "tier_config_setup_request_validation": ["draft"],
-    "tier_config_change_request_validation": ["draft"]
+    "tier_config_change_request_validation": ["draft"],
+    "listing_new_request_processing": ["draft", "reviewing", "deploying", "canceled", "completed"],
+    "listing_remove_request_processing": ["draft", "reviewing", "deploying", "canceled", "completed"],
+    "tier_account_update_request_processing": ["pending", "accepted", "ignored"],
+    "usage_file_request_processing": ["draft", "uploading", "uploaded", "invalid", "processing", "processed", "ready", "rejected", "pending", "accepted", "closed", "deleted"],
+    "part_usage_file_request_processing":["draft", "ready", "closed", "failed"]
   },
   "schedulables": [
     {
