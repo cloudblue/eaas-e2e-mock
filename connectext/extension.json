@@ -23,7 +23,7 @@
     "listing_new_request_processing": ["draft", "reviewing", "deploying", "canceled", "completed"],
     "listing_remove_request_processing": ["draft", "reviewing", "deploying", "canceled", "completed"],
     "tier_account_update_request_processing": ["pending", "accepted", "ignored"],
-    "usage_file_request_processing": ["draft", "uploading", "uploaded", "invalid", "processing", "processed", "ready", "rejected", "pending", "accepted", "closed", "deleted"],
+    "usage_file_request_processing": ["draft", "uploading", "uploaded", "invalid", "processing", "processed", "ready", "rejected", "pending", "accepted", "closed"],
     "part_usage_file_request_processing":["draft", "ready", "closed", "failed"]
   },
   "schedulables": [
