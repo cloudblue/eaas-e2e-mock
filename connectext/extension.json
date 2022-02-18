@@ -11,6 +11,7 @@
     "asset_resume_request_processing": ["pending", "approved", "failed", "scheduled", "revoking", "revoked"],
     "asset_cancel_request_processing": ["pending", "approved", "failed", "scheduled", "revoking", "revoked"],
     "asset_adjustment_request_processing": ["pending", "approved", "failed", "inquiring", "scheduled", "revoking", "revoked"],
+
     "asset_purchase_request_validation": ["draft"],
     "asset_change_request_validation": ["draft"],
     "product_action_execution": [],
