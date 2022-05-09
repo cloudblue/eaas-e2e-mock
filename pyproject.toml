@@ -13,8 +13,8 @@ readme = "./README.md"
 "extension" = "connectext.extension:E2EExtension"
 
 [tool.poetry.dependencies]
-python = "^3.8"
-connect-extension-runner = "24.*"
+python = ">=3.8,<4"
+connect-eaas-core = "^1.7.0"
 
 
 [tool.poetry.dev-dependencies]

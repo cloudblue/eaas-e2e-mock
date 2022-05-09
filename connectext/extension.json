@@ -4,36 +4,6 @@
   "version": "1.0.0",
   "readme_url": "https://github.com/cloudblue/eaas-e2e-mock/blob/master/README.md",
   "changelog_url": "https://github.com/cloudblue/eaas-e2e-mock/blob/master/CHANGELOG.md",
-  "capabilities": {
-    "asset_purchase_request_processing": ["pending", "approved", "failed", "inquiring", "scheduled", "revoking", "revoked"],
-    "asset_change_request_processing": ["pending", "approved", "failed", "inquiring", "scheduled", "revoking", "revoked"],
-    "asset_suspend_request_processing": ["pending", "approved", "failed", "scheduled", "revoking", "revoked"],
-    "asset_resume_request_processing": ["pending", "approved", "failed", "scheduled", "revoking", "revoked"],
-    "asset_cancel_request_processing": ["pending", "approved", "failed", "scheduled", "revoking", "revoked"],
-    "asset_adjustment_request_processing": ["pending", "approved", "failed", "inquiring", "scheduled", "revoking", "revoked"],
-
-    "asset_purchase_request_validation": ["draft"],
-    "asset_change_request_validation": ["draft"],
-    "product_action_execution": [],
-    "product_custom_event_processing": [],
-    "tier_config_setup_request_processing": ["pending", "failed", "approved", "inquiring"],
-    "tier_config_change_request_processing": ["pending", "failed", "approved", "inquiring"],
-    "tier_config_adjustment_request_processing": ["pending", "failed", "approved", "inquiring"],
-    "tier_config_setup_request_validation": ["draft"],
-    "tier_config_change_request_validation": ["draft"],
-    "listing_new_request_processing": ["draft", "reviewing", "deploying", "canceled", "completed"],
-    "listing_remove_request_processing": ["draft", "reviewing", "deploying", "canceled", "completed"],
-    "tier_account_update_request_processing": ["pending", "accepted", "ignored"],
-    "usage_file_request_processing": ["draft", "uploading", "uploaded", "invalid", "processing", "processed", "ready", "rejected", "pending", "accepted", "closed"],
-    "part_usage_file_request_processing":["draft", "ready", "closed", "failed"]
-  },
-  "schedulables": [
-    {
-      "name": "Schedulable method mock",
-      "description": "It can be used to test DevOps scheduler.",
-      "method": "execute_scheduled_processing"
-    }
-  ],
   "variables": [
     {
       "name": "ASSET_REQUEST_APPROVE_TEMPLATE_ID",

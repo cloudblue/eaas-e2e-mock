@@ -3,8 +3,9 @@
 # Copyright (c) 2021, CloudBlue
 # All rights reserved.
 #
-from connect.eaas.extension import (
-    Extension,
+from connect.eaas.core.decorators import event, schedulable, variables
+from connect.eaas.core.extension import Extension
+from connect.eaas.core.responses import (
     ProcessingResponse,
     ValidationResponse,
     ProductActionResponse,
@@ -16,6 +17,22 @@ import random
 import string
 
 
+@variables(
+    [
+        {
+            'name': 'ASSET_REQUEST_APPROVE_TEMPLATE_ID',
+            'initial_value': '<change_with_purchase_request_approve_template_id>'
+        },
+        {
+            'name': 'ASSET_REQUEST_CHANGE_TEMPLATE_ID',
+            'initial_value': '<change_with_change_request_approve_template_id>'
+        },
+        {
+            'name': 'TIER_REQUEST_APPROVE_TEMPLATE_ID',
+            'initial_value': '<change_with_tier_request_approve_template_id>'
+        },
+    ],
+)
 class E2EExtension(Extension):
 
     def approve_asset_request(self, request, template_id):
@@ -38,6 +55,13 @@ class E2EExtension(Extension):
         )
         self.logger.info(f"Approved request {request['id']}")
 
+    @event(
+        'asset_purchase_request_processing',
+        statuses=[
+            'pending', 'approved', 'failed', 'inquiring',
+            'scheduled', 'revoking', 'revoked',
+        ],
+    )
     def process_asset_purchase_request(self, request):
         self.logger.info(
             f"Received event for subscription request {request['id']} in status {request['status']}"
@@ -69,6 +93,13 @@ class E2EExtension(Extension):
 
         return ProcessingResponse.done()
 
+    @event(
+        'asset_change_request_processing',
+        statuses=[
+            'pending', 'approved', 'failed', 'inquiring',
+            'scheduled', 'revoking', 'revoked',
+        ],
+    )
     def process_asset_change_request(self, request):
         self.logger.info(
             f"Received event for subscription request {request['id']}, type {request['type']} "
@@ -80,6 +111,13 @@ class E2EExtension(Extension):
             self.approve_asset_request(request, template_id)
         return ProcessingResponse.done()
 
+    @event(
+        'asset_suspend_request_processing',
+        statuses=[
+            'pending', 'approved', 'failed',
+            'scheduled', 'revoking', 'revoked',
+        ],
+    )
     def process_asset_suspend_request(self, request):
         self.logger.info(
             f"Received event for subscription request {request['id']}, type {request['type']} "
@@ -90,6 +128,13 @@ class E2EExtension(Extension):
             self.approve_asset_request(request, template_id)
         return ProcessingResponse.done()
 
+    @event(
+        'asset_resume_request_processing',
+        statuses=[
+            'pending', 'approved', 'failed',
+            'scheduled', 'revoking', 'revoked',
+        ],
+    )
     def process_asset_resume_request(self, request):
         self.logger.info(
             f"Received event for subscription request {request['id']}, type {request['type']} "
@@ -100,6 +145,13 @@ class E2EExtension(Extension):
             self.approve_asset_request(request, template_id)
         return ProcessingResponse.done()
 
+    @event(
+        'asset_resume_cancel_processing',
+        statuses=[
+            'pending', 'approved', 'failed',
+            'scheduled', 'revoking', 'revoked',
+        ],
+    )
     def process_asset_cancel_request(self, request):
         self.logger.info(
             f"Received event for subscription request {request['id']}, type {request['type']} "
@@ -110,6 +162,13 @@ class E2EExtension(Extension):
             self.approve_asset_request(request, template_id)
         return ProcessingResponse.done()
 
+    @event(
+        'asset_adjustment_request_processing',
+        statuses=[
+            'pending', 'approved', 'failed', 'inquiring',
+            'scheduled', 'revoking', 'revoked',
+        ],
+    )
     def process_asset_adjustment_request(self, request):
         self.logger.info(
             f"Received event for subscription request {request['id']}, type {request['type']} "
@@ -120,22 +179,27 @@ class E2EExtension(Extension):
             self.approve_asset_request(request, template_id)
         return ProcessingResponse.done()
 
+    @event('tier_config_setup_request_validation', statuses=['draft'])
     def validate_tier_config_setup_request(self, request):
         self.logger.info(f"TCR Validation with id {request['id']}")
         return ValidationResponse.done(request)
 
+    @event('tier_config_change_request_validation', statuses=['draft'])
     def validate_tier_config_change_request(self, request):
         self.logger.info(f"TCR Validation with id {request['id']}")
         return ValidationResponse.done(request)
 
+    @event('asset_purchase_request_validation', statuses=['draft'])
     def validate_asset_purchase_request(self, request):
         self.logger.info(f"Asset Validation with id {request['id']}")
         return ValidationResponse.done(request)
 
+    @event('asset_change_request_validation', statuses=['draft'])
     def validate_asset_change_request(self, request):
         self.logger.info(f"asset Validation with id {request['id']}")
         return ValidationResponse.done(request)
 
+    @event('product_action_execution')
     def execute_product_action(self, request):
         self.logger.info(f'Product action: {request}')
         return ProductActionResponse.done(
@@ -143,6 +207,7 @@ class E2EExtension(Extension):
             headers={'Location': 'https://google.com'},
         )
 
+    @event('product_custom_event_processing')
     def process_product_custom_event(self, request):
         self.logger.info(f'Custom event: {request}')
         sample_return_body = {
@@ -150,6 +215,10 @@ class E2EExtension(Extension):
         }
         return CustomEventResponse.done(body=sample_return_body)
 
+    @event(
+        'tier_config_setup_request_processing',
+        statuses=['pending', 'approved', 'failed', 'inquiring'],
+    )
     def process_tier_config_setup_request(self, request):
         self.logger.info(
             f"Received event for TCR request {request['id']}, type {request['type']} "
@@ -172,6 +241,10 @@ class E2EExtension(Extension):
 
         return ProcessingResponse.done()
 
+    @event(
+        'tier_config_change_request_processing',
+        statuses=['pending', 'approved', 'failed', 'inquiring'],
+    )
     def process_tier_config_change_request(self, request):
         self.logger.info(
             f"Received event for TCR request {request['id']}, type {request['type']} "
@@ -182,6 +255,10 @@ class E2EExtension(Extension):
             self.approve_tier_request(request, template_id)
         return ProcessingResponse.done()
 
+    @event(
+        'tier_config_adjustment_request_processing',
+        statuses=['pending', 'approved', 'failed', 'inquiring'],
+    )
     def process_tier_config_adjustment_request(self, request):
         self.logger.info(
             f"Received event for TCR request {request['id']}, type {request['type']} "
@@ -192,26 +269,20 @@ class E2EExtension(Extension):
             self.approve_tier_request(request, template_id)
         return ProcessingResponse.done()
 
+    @schedulable(
+        'Schedulable method mock',
+        'It can be used to test DevOps scheduler.',
+    )
     def execute_scheduled_processing(self, schedule):
         self.logger.info(
             f"Scheduled execution started: {schedule}",
         )
         return ScheduledExecutionResponse.done()
 
-    def process_new_listing_request(self, request):  # pragma: no cover
-        self.logger.info(
-            f"Received event for listing request  {request['id']}, type {request['type']} "
-            f"in status {request['state']}",
-        )
-        return ProcessingResponse.done()
-
-    def process_remove_listing_request(self, request):  # pragma: no cover
-        self.logger.info(
-            f"Received event for listing request  {request['id']}, type {request['type']} "
-            f"in status {request['state']}",
-        )
-        return ProcessingResponse.done()
-
+    @event(
+        'tier_account_update_request_processing',
+        statuses=['pending', 'accepted', 'ignored'],
+    )
     def process_tier_account_update_request(self, request):  # pragma: no cover
         self.logger.info(
             f"Received event for tier account request  {request['id']}, type {request['type']} "
@@ -219,6 +290,14 @@ class E2EExtension(Extension):
         )
         return ProcessingResponse.done()
 
+    @event(
+        'usage_file_request_processing',
+        statuses=[
+            'draft', 'uploading', 'uploaded', 'invalid', 
+            'processing', 'processed', 'ready', 'rejected', 
+            'pending', 'accepted', 'closed',
+        ],
+    )  
     def process_usage_file(self, request):  # pragma: no cover
         self.logger.info(
             f"Received event for usage file  {request['id']} "
@@ -226,6 +305,10 @@ class E2EExtension(Extension):
         )
         return ProcessingResponse.done()
 
+    @event(
+        'part_usage_file_request_processing',
+        statuses=['draft', 'ready', 'closed', 'failed'],
+    )
     def process_usage_chunk_file(self, request):  # pragma: no cover
         self.logger.info(
             f"Received event for usage chunks file  {request['id']} "
