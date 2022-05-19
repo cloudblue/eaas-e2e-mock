@@ -6,10 +6,8 @@
 from connect.eaas.core.decorators import event, schedulable, variables
 from connect.eaas.core.extension import Extension
 from connect.eaas.core.responses import (
-    ProcessingResponse,
-    ValidationResponse,
-    ProductActionResponse,
-    CustomEventResponse,
+    BackgroundResponse,
+    InteractiveResponse,
     ScheduledExecutionResponse,
 )
 
@@ -91,7 +89,7 @@ class E2EExtension(Extension):
             template_id = self.config['ASSET_REQUEST_APPROVE_TEMPLATE_ID']
             self.approve_asset_request(request, template_id)
 
-        return ProcessingResponse.done()
+        return BackgroundResponse.done()
 
     @event(
         'asset_change_request_processing',
@@ -109,7 +107,7 @@ class E2EExtension(Extension):
         if request['status'] == 'pending':
             template_id = self.config['ASSET_REQUEST_CHANGE_TEMPLATE_ID']
             self.approve_asset_request(request, template_id)
-        return ProcessingResponse.done()
+        return BackgroundResponse.done()
 
     @event(
         'asset_suspend_request_processing',
@@ -126,7 +124,7 @@ class E2EExtension(Extension):
         if request['status'] == 'pending':
             template_id = self.config['ASSET_REQUEST_APPROVE_TEMPLATE_ID']
             self.approve_asset_request(request, template_id)
-        return ProcessingResponse.done()
+        return BackgroundResponse.done()
 
     @event(
         'asset_resume_request_processing',
@@ -143,7 +141,7 @@ class E2EExtension(Extension):
         if request['status'] == 'pending':
             template_id = self.config['ASSET_REQUEST_APPROVE_TEMPLATE_ID']
             self.approve_asset_request(request, template_id)
-        return ProcessingResponse.done()
+        return BackgroundResponse.done()
 
     @event(
         'asset_resume_cancel_processing',
@@ -160,7 +158,7 @@ class E2EExtension(Extension):
         if request['status'] == 'pending':
             template_id = self.config['ASSET_REQUEST_APPROVE_TEMPLATE_ID']
             self.approve_asset_request(request, template_id)
-        return ProcessingResponse.done()
+        return BackgroundResponse.done()
 
     @event(
         'asset_adjustment_request_processing',
@@ -177,32 +175,32 @@ class E2EExtension(Extension):
         if request['status'] == 'pending':
             template_id = self.config['ASSET_REQUEST_APPROVE_TEMPLATE_ID']
             self.approve_asset_request(request, template_id)
-        return ProcessingResponse.done()
+        return BackgroundResponse.done()
 
     @event('tier_config_setup_request_validation', statuses=['draft'])
     def validate_tier_config_setup_request(self, request):
         self.logger.info(f"TCR Validation with id {request['id']}")
-        return ValidationResponse.done(request)
+        return InteractiveResponse.done(body=request)
 
     @event('tier_config_change_request_validation', statuses=['draft'])
     def validate_tier_config_change_request(self, request):
         self.logger.info(f"TCR Validation with id {request['id']}")
-        return ValidationResponse.done(request)
+        return InteractiveResponse.done(body=request)
 
     @event('asset_purchase_request_validation', statuses=['draft'])
     def validate_asset_purchase_request(self, request):
         self.logger.info(f"Asset Validation with id {request['id']}")
-        return ValidationResponse.done(request)
+        return InteractiveResponse.done(body=request)
 
     @event('asset_change_request_validation', statuses=['draft'])
     def validate_asset_change_request(self, request):
         self.logger.info(f"asset Validation with id {request['id']}")
-        return ValidationResponse.done(request)
+        return InteractiveResponse.done(body=request)
 
     @event('product_action_execution')
     def execute_product_action(self, request):
         self.logger.info(f'Product action: {request}')
-        return ProductActionResponse.done(
+        return InteractiveResponse.done(
             http_status=302,
             headers={'Location': 'https://google.com'},
         )
@@ -213,7 +211,7 @@ class E2EExtension(Extension):
         sample_return_body = {
             "response": "OK"
         }
-        return CustomEventResponse.done(body=sample_return_body)
+        return InteractiveResponse.done(body=sample_return_body)
 
     @event(
         'tier_config_setup_request_processing',
@@ -239,7 +237,7 @@ class E2EExtension(Extension):
             template_id = self.config['TIER_REQUEST_APPROVE_TEMPLATE_ID']
             self.approve_tier_request(request, template_id)
 
-        return ProcessingResponse.done()
+        return BackgroundResponse.done()
 
     @event(
         'tier_config_change_request_processing',
@@ -253,7 +251,7 @@ class E2EExtension(Extension):
         if request['status'] == 'pending':
             template_id = self.config['TIER_REQUEST_APPROVE_TEMPLATE_ID']
             self.approve_tier_request(request, template_id)
-        return ProcessingResponse.done()
+        return BackgroundResponse.done()
 
     @event(
         'tier_config_adjustment_request_processing',
@@ -267,7 +265,7 @@ class E2EExtension(Extension):
         if request['status'] == 'pending':
             template_id = self.config['TIER_REQUEST_APPROVE_TEMPLATE_ID']
             self.approve_tier_request(request, template_id)
-        return ProcessingResponse.done()
+        return BackgroundResponse.done()
 
     @schedulable(
         'Schedulable method mock',
@@ -288,7 +286,7 @@ class E2EExtension(Extension):
             f"Received event for tier account request  {request['id']}, type {request['type']} "
             f"in status {request['status']}",
         )
-        return ProcessingResponse.done()
+        return BackgroundResponse.done()
 
     @event(
         'usage_file_request_processing',
@@ -303,7 +301,7 @@ class E2EExtension(Extension):
             f"Received event for usage file  {request['id']} "
             f"in status {request['status']}",
         )
-        return ProcessingResponse.done()
+        return BackgroundResponse.done()
 
     @event(
         'part_usage_file_request_processing',
@@ -314,4 +312,4 @@ class E2EExtension(Extension):
             f"Received event for usage chunks file  {request['id']} "
             f"in status {request['status']}",
         )
-        return ProcessingResponse.done()
+        return BackgroundResponse.done()

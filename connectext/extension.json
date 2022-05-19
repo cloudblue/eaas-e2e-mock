@@ -3,19 +3,5 @@
   "description": "This extension is for e2e tests of EaaS.",
   "version": "1.0.0",
   "readme_url": "https://github.com/cloudblue/eaas-e2e-mock/blob/master/README.md",
-  "changelog_url": "https://github.com/cloudblue/eaas-e2e-mock/blob/master/CHANGELOG.md",
-  "variables": [
-    {
-      "name": "ASSET_REQUEST_APPROVE_TEMPLATE_ID",
-      "initial_value": "<change_with_purchase_request_approve_template_id>"
-    },
-    {
-      "name": "ASSET_REQUEST_CHANGE_TEMPLATE_ID",
-      "initial_value": "<change_with_change_request_approve_template_id>"
-    },
-    {
-      "name": "TIER_REQUEST_APPROVE_TEMPLATE_ID",
-      "initial_value": "<change_with_tier_request_approve_template_id>"
-    }
-  ]
+  "changelog_url": "https://github.com/cloudblue/eaas-e2e-mock/blob/master/CHANGELOG.md"
 }
